@@ -1,4 +1,4 @@
-![.NET Core](https://github.com/dyl10s/AutomaticML/workflows/.NET%20Core/badge.svg?branch=master)
+![.NET Core](https://github.com/dyl10s/AutomateML/workflows/.NET%20Core/badge.svg)
 # Welcome to Automated.ml
 ### Machine learning is starting to become a key component to every web application. With our easy to use model trainer all you need is the data and we will do the rest.
 
