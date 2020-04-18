@@ -1,6 +1,7 @@
 ![.NET Core](https://github.com/dyl10s/AutomateML/workflows/.NET%20Core/badge.svg)
 # Welcome to Automated.ml
 ### Machine learning is starting to become a key component to every web application. With our easy to use model trainer all you need is the data and we will do the rest.
+https://automate.ml/
 
 ## About Automated.ml
 Our tool is built for everyone. For the hardcore ML enthusiest to the person who just has a dataset and a dream. We work hard to allow you to intigrate with your platform without any hassle. Don't even have a dataset? Search from our numerous models already trained by people from around the globe.
