@@ -1,0 +1,54 @@
+<div class="container pt-5">
+    <div class="justify-content-center">
+        <div class="card">
+            <div class="card-header">
+                <h3>Sign In</h3>
+            </div>
+            <div class="card-body">
+                <form #form="ngForm" (ngSubmit)="loginregister(form)">
+                    <h5>Username:</h5>
+                    <input name="Username" type="text" class="form-control mb-3" ngModel>
+                    <h5>Password:</h5>
+                    <input name="Password" type="password" class="form-control mb-3" ngModel>
+
+                    <div *ngIf="this.SigningUp">
+                        <h5>Confirm Password:</h5>
+                        <input name="ConfirmPassword" type="password" class="form-control mb-3" ngModel>
+                        <h5>Email Address:</h5>
+                        <input name="Email" type="text" class="form-control mb-3" ngModel>
+                    </div>
+
+                    <h6 *ngIf="this.ErrorMessage" class="text-danger">{{this.ErrorMessage}}</h6>
+
+                    <div *ngIf="this.IsLoading">
+                      <button type="submit" *ngIf="!this.SigningUp" class="btn float-right btn-primary" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Login
+                      </button>
+                      <button type="submit" *ngIf="this.SigningUp" class="btn float-right btn-primary" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Sign Up
+                      </button>
+                    </div>
+                    <div *ngIf="!this.IsLoading">
+                      <button type="submit" *ngIf="!this.SigningUp" class="btn float-right btn-primary">
+                        Login
+                      </button>
+                      <button type="submit" *ngIf="this.SigningUp" class="btn float-right btn-primary">
+                        Sign Up
+                      </button>
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="card-footer justify-content-center">
+                <div class="text-center" *ngIf="!this.SigningUp">
+                    Don't have an account? <a class="text-primary" (click)="switchMode()">Sign Up</a>
+                </div>
+                <div class="text-center" *ngIf="this.SigningUp">
+                    Already have an account? <a class="text-primary" (click)="switchMode()">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

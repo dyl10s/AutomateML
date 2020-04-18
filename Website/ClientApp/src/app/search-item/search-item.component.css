@@ -1,0 +1,38 @@
+.thumbnail {
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+}
+
+i {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 30px;
+}
+
+h4 {
+    padding-left: 10px;
+    margin-top: 5px;
+}
+
+.itemData {
+    width: calc(50% - 50px);
+}
+
+.itemAction {
+    line-height: 32px;
+    width: calc(50% - 50px);
+    text-align: right;
+}
+
+.notFirstItem {
+    margin-left: 30px;
+}
+
+.statsSection {
+    margin-top: 35px;
+}
+
+.clickable {
+    cursor: pointer;
+}

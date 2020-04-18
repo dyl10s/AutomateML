@@ -1,0 +1,9 @@
+input[type=file] {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, .2);
+}

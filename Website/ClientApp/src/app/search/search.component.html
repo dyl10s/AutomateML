@@ -1,0 +1,25 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+            <h3>Find Existing Models</h3>
+            <form (ngSubmit)="search()">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Model Name" name="searchQuery" [(ngModel)]="searchQuery">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div *ngFor="let result of this.results" class="pb-2">
+                <app-search-item [modelItem]="result"></app-search-item>
+            </div>
+            <div *ngIf="this.hasSearched && this.results.length == 0">
+                <h5 class="w-100 text-center">No Results</h5>
+            </div>
+        </div>
+    </div>
+</div>

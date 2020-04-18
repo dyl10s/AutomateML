@@ -1,0 +1,21 @@
+<div class="row clickable" [routerLink]="['/model', this.modelItem.modelId]">
+    <div class="card w-100 px-3">
+        <div class="card-body">
+            <div class="row">
+                <img class="thumbnail" src="https://via.placeholder.com/150" />
+                <div class="pl-1 itemData">
+                    <div>
+                        <h4>{{modelItem.name}}</h4>
+                    </div>
+                    <div class="statsSection">
+                        <i class="fa fa-user"></i> {{modelItem.username}}
+                        <i class="fa fa-percent notFirstItem"></i> {{ (modelItem.accuracy * 100) | number:'2.2-2'}}
+                        <i class="fa fa-bars notFirstItem"></i> {{ modelItem.rows}}
+                    </div>
+                </div>
+                <div class="itemAction">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

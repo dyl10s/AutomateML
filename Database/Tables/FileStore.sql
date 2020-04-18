@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[FileStore]
+(
+	[FileStoreId] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Data] VARBINARY(MAX) NOT NULL
+)

@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <a class="navbar-brand" [routerLink]="['/']">Automate.ml</a>
+
+    <div class="collapse navbar-collapse" [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" [routerLink]="['/']">Home</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link" [routerLink]="['/search']">Search</a>
+            </li>
+            <li *ngIf="this.isLoggedin" class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link" [routerLink]="['/builder']">Train a Model</a>
+            </li>
+        </ul>
+
+        <a *ngIf="!this.isLoggedin" class="nav-link text-white pl-0" [routerLink]="['/login']">Login / Register</a>
+        <span *ngIf="this.isLoggedin">
+            {{this.username}}
+            <a class="nav-link text-white pl-0 d-inline" (click)="logout()"> | Logout</a>
+        </span>
+
+    </div>
+</nav>

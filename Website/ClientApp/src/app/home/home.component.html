@@ -1,0 +1,50 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1>Welcome to Automate.ml</h1>
+        <h4>
+            Machine learning is starting to become a key component to every web application. With our easy to use model trainer all you need is the data and we will do the rest.
+        </h4>
+        <hr class="my-4">
+        <a class="btn btn-primary mr-3 mt-3" [routerLink]="['/search']">Search Existing Models</a>
+        <button class="btn btn-primary mt-3" [routerLink]="['/builder']">Create Your Own Model</button>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h4 class="card-title">About Automate.ml</h4>
+                            <p class="card-text">
+                                Our tool is built for everyone. For the hardcore ML enthusiest to the person who just has a dataset and a dream. We work hard to allow you to intigrate with your platform without any hassle. Don't even have a dataset? Search from our numerous models already
+                                trained by people from around the globe.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">For Developers</h4>
+                            <p class="card-text">
+                                Automate.ml was built with developers in mind. Once your model is trained we allow you to access a custom endpoint so you can get intigrating right away. No need to figure out how to apply your model you just trained! Just simply pass us an array of
+                                data to evaluate!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 pt-lg-0 pt-sm-3 pt-3">
+            <div class="list-group">
+                <span class="list-group-item font-weight-bold">TOP 10 MODELS</span>
+                <a href="#" *ngFor="let model of topTenModels" class="list-group-item list-group-item-action" 
+                [routerLink]="['/model/' + model.modelId]">
+                    {{ model.name }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

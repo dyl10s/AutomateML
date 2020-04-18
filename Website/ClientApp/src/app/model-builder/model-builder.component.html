@@ -1,0 +1,103 @@
+<div class="container mt-3">
+    <div class="row justify-content-center mb-2">
+        <h3>Start Training a Model</h3>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    Model Information
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label>Model Name:</label>
+                            <input class="form-control" type="text" [(ngModel)]='trainModel.Title' maxlength="100">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label>Model Type:</label>
+                            <select class="form-control" [(ngModel)]='trainModel.ModelType'>
+                                <option [ngValue]="1" [selected]="1 === trainModel.ModelType">Binary Classification</option>
+                                <option [ngValue]="2" [selected]="2 === trainModel.ModelType">Multiclass Classification</option>
+                                <option [ngValue]="3" [selected]="3 === trainModel.ModelType">Regression</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label>Model Description:</label>
+                            <textarea class="form-control" rows="5" [(ngModel)]='trainModel.Description'></textarea>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button class="btn btn-block btn-primary" (click)="this.startFileUpload()">Upload CSV</button>
+                            <input type="file" class="form-control" id="fileUpload" (change)="this.handleFileUpload($event)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3" *ngIf="this.trainModel.Columns" id="dataConfigBox">
+                <script>
+                    document.getElementById("dataConfigBox").scrollIntoView({behavior: "smooth"});
+                </script>
+                <div class="card-header">
+                    Data Configuration
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4 mb-3" *ngFor="let column of this.trainModel.Columns">
+                            <label>{{ column.ColumnName }}</label>
+                            <select class="form-control" [(ngModel)]='column.Type'>
+                                <option [ngValue]="9" [selected]="9 === column.Type">Number</option>
+                                <option [ngValue]="11" [selected]="11 === column.Type">Text</option>
+                                <option [ngValue]="12" [selected]="12 === column.Type">True / False</option>
+                                <option [ngValue]="1" [selected]="1 === column.Type">Ignore Value</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label>Select Output Column</label>
+                            <select class="form-control" [(ngModel)]='trainModel.LabelColumn'>
+                                <option *ngFor="let column of this.trainModel.Columns">{{ column.ColumnName }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button *ngIf="this.trainModel.Columns" class="btn btn-block btn-primary mt-3" (click)="startTraining()">Start Training</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="this.modalShowing">
+    <div class="modal animated fadeInDown show" id="LoadingModal" data-backdrop="static" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Training In Progress</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <label>Please wait while we train a model for you. This should take up to 1 minute.</label>
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="this.trainComplete">
+    <div class="modal animated fadeInDown show" id="LoadingModal" data-backdrop="static" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Training Complete</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <div>Training has been complete.</div>
+                    <div>Accuracy of model based on training data is %{{ (this.resultsModel.accuracy * 100) | number:'2.2-2' }}</div>
+                </div>
+                <div class="modal-footer float-right">
+                    <button class="btn btn-primary" (click)="this.trainComplete = false">View Model</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

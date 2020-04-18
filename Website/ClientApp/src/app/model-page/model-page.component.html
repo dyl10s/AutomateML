@@ -1,0 +1,115 @@
+<div class="container text-center mt-5" *ngIf="this.currentModel == null">
+    <span class="spinner-border spinner-border-lg" role="status" aria-hidden="true"></span>
+</div>
+<div class="container mt-5" *ngIf="this.currentModel != null">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>{{ this.currentModel.name }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-6">
+                            <h2>Statistics</h2>
+                        </div>
+                        <div class="col-6">
+                            <button *ngIf="!votedForModel" class="btn btn-primary float-right" (click)="ToggleVote()">
+                                Vote ({{this.modelVotes}})
+                            </button>
+                            <button *ngIf="votedForModel" class="btn btn-primary float-right" (click)="ToggleVote()">
+                                Remove Vote ({{this.modelVotes}})
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-3">
+                            Creator
+                            <h4>{{this.currentModel.username}}</h4>
+                        </div>
+                        <div class="col-3">
+                            Accuracy 
+                            <h4>{{this.currentModel.accuracy * 100 | number:'2.2-2'}}%</h4>
+                        </div>
+                        <div class="col-3">
+                            Data Rows 
+                            <h4>{{this.currentModel.rows}}</h4>
+                        </div>
+                        <div class="col-3">
+                            Trained On 
+                            <h4>{{this.currentModel.createdOn | date:'MM/dd/yyyy'}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Description</h2>
+                </div>
+                <div class="card-body">
+                    {{this.currentModel.description}}
+                    <div *ngIf="this.currentModel.description == null">
+                        There is no description for this model.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Evaluate</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div *ngFor="let result of this.GetInputFields()" class="col-3">
+                            <div>
+                                {{result.name}}
+                            </div>
+                            <input *ngIf="result.dataTypeId == 11" [(ngModel)]="result.currentValue" type="text" class="form-control"/>
+                            <input *ngIf="result.dataTypeId == 9" [(ngModel)]="result.currentValue" type="number" class="form-control"/>
+                            <select *ngIf="result.dataTypeId == 12" class="form-control" [(ngModel)]='result.currentValue'>
+                                <option [ngValue]="true" [selected]="true === result.currentValue">True</option>
+                                <option [ngValue]="false" [selected]="false === result.currentValue">False</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-primary btn-block" (click)="PredictModel()">
+                                Make Prediction
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="lastPrediction != null" class="row">
+                        <div class="col-12 text-center">
+                            <h4>Results</h4>
+                            <h5>{{this.lastPrediction}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>API</h2>
+                </div>
+                <div class="card-body">
+                    API details here
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
