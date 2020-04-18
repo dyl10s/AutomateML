@@ -5,6 +5,7 @@ import { ReturnResult } from '../../objects/ReturnResult';
 import { Model } from '../../objects/Model';
 import { ModelField } from 'src/objects/ModelField';
 import { stringify } from 'querystring';
+import { GlobalState } from 'src/services/global-state/global-state.service';
 
 @Component({
   selector: 'app-model-page',
@@ -19,11 +20,14 @@ export class ModelPageComponent {
   modelFields: ModelField[];
   currentModel: Model;
   lastPrediction: any;
+  isLoggedin: boolean = false;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   
-  constructor(private route: ActivatedRoute, public Http: HttpClient, @Inject('BASE_URL') public BaseUrl: string) { 
-    this.modelId = parseInt(this.route.snapshot.params["id"]);
+  constructor(private route: ActivatedRoute, public Http: HttpClient, @Inject('BASE_URL') public BaseUrl: string, public state: GlobalState) { 
     
+    this.modelId = parseInt(this.route.snapshot.params["id"]);
+    this.state.isLoggedIn.subscribe(value => this.isLoggedin = value);
+
     this.Http.get<ReturnResult<Model>>(this.BaseUrl + "api/Models/GetModel?modelId=" + this.modelId)
     .subscribe((success: ReturnResult<Model>) => {
       if(success.success){
@@ -41,17 +45,19 @@ export class ModelPageComponent {
       })
     );
 
-    this.Http.get<ReturnResult<number>>(this.BaseUrl + "api/Models/GetModelVotes?modelId=" + this.modelId).subscribe(
-      ((success: ReturnResult<number>) => {
-        this.modelVotes = success.item;
-      })
-    );
-
-    this.Http.get<ReturnResult<boolean>>(this.BaseUrl + "api/Models/HasVotedForModel?modelId=" + this.modelId).subscribe(
-      ((success: ReturnResult<boolean>) => {
-        this.votedForModel = success.item;
-      })
-    );
+    if(this.isLoggedin){
+      this.Http.get<ReturnResult<number>>(this.BaseUrl + "api/Models/GetModelVotes?modelId=" + this.modelId).subscribe(
+        ((success: ReturnResult<number>) => {
+          this.modelVotes = success.item;
+        })
+      );
+  
+      this.Http.get<ReturnResult<boolean>>(this.BaseUrl + "api/Models/HasVotedForModel?modelId=" + this.modelId).subscribe(
+        ((success: ReturnResult<boolean>) => {
+          this.votedForModel = success.item;
+        })
+      );
+    }
   }
 
   GetInputFields() : ModelField[]{

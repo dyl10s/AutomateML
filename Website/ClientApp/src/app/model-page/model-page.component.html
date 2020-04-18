@@ -11,15 +11,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
+                    <div class="row pb-0">
                         <div class="col-6">
                             <h2>Statistics</h2>
                         </div>
                         <div class="col-6">
-                            <button *ngIf="!votedForModel" class="btn btn-primary float-right" (click)="ToggleVote()">
+                            <div *ngIf="!isLoggedin" class="float-right pt-2">
+                                Votes ({{this.modelVotes}})
+                            </div>
+                            <button *ngIf="!votedForModel && isLoggedin" class="btn btn-primary float-right" (click)="ToggleVote()">
                                 Vote ({{this.modelVotes}})
                             </button>
-                            <button *ngIf="votedForModel" class="btn btn-primary float-right" (click)="ToggleVote()">
+                            <button *ngIf="votedForModel && isLoggedin" class="btn btn-primary float-right" (click)="ToggleVote()">
                                 Remove Vote ({{this.modelVotes}})
                             </button>
                         </div>
@@ -71,7 +74,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div *ngFor="let result of this.GetInputFields()" class="col-3">
+                        <div *ngFor="let result of this.GetInputFields()" class="col-3 pb-3">
                             <div>
                                 {{result.name}}
                             </div>
