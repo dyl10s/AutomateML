@@ -222,62 +222,75 @@ namespace Website.Models
         public static ReturnResult<Model> TrainModel(IDatabase db, TrainInput input, int curUserId, string TrainModelURL)
         {
             ReturnResult<Model> modelBuilderResults = null;
-            using (WebClient client = new WebClient())
+
+            try
             {
-                modelBuilderResults = JsonConvert.DeserializeObject<ReturnResult<Model>>
-                    (client.UploadString(new Uri(TrainModelURL), JsonConvert.SerializeObject(input)));
-            }
-
-            if (!modelBuilderResults.Success)
-            {
-                return modelBuilderResults;
-            }
-
-            //Save the model to the server and save details to the database
-            Model curModel = new Model()
-            {
-                CreatedBy = curUserId,
-                CreatedOn = DateTime.UtcNow,
-                Name = input.Title,
-                FileStoreId = modelBuilderResults.Item.FileStoreId,
-                Accuracy = modelBuilderResults.Item.Accuracy,
-                Rows = modelBuilderResults.Item.Rows,
-                Description = input.Description
-            };
-
-            var modelInsertReults = Model.InsertUpdate(db, curModel);
-
-            if (modelInsertReults.Success == false)
-            {
-                return modelInsertReults;
-            }
-
-            List<ModelField> modelFields = new List<ModelField>();
-
-            foreach (var col in input.Columns)
-            {
-                modelFields.Add(new ModelField()
+                using (WebClient client = new WebClient())
                 {
-                    DataTypeId = col.Type,
-                    IsOutput = col.ColumnName == input.LabelColumn,
-                    ModelId = curModel.ModelId,
-                    Name = col.ColumnName
-                });
-            }
+                    modelBuilderResults = JsonConvert.DeserializeObject<ReturnResult<Model>>
+                        (client.UploadString(new Uri(TrainModelURL), JsonConvert.SerializeObject(input)));
+                }
 
-            var insertModelFieldsResults = ModelField.InsertBulk(db, modelFields);
+                if (!modelBuilderResults.Success)
+                {
+                    return modelBuilderResults;
+                }
 
-            if (insertModelFieldsResults.Success)
-            {
-                return modelInsertReults;
+                //Save the model to the server and save details to the database
+                Model curModel = new Model()
+                {
+                    CreatedBy = curUserId,
+                    CreatedOn = DateTime.UtcNow,
+                    Name = input.Title,
+                    FileStoreId = modelBuilderResults.Item.FileStoreId,
+                    Accuracy = modelBuilderResults.Item.Accuracy,
+                    Rows = modelBuilderResults.Item.Rows,
+                    Description = input.Description
+                };
+
+                var modelInsertReults = Model.InsertUpdate(db, curModel);
+
+                if (modelInsertReults.Success == false)
+                {
+                    return modelInsertReults;
+                }
+
+                List<ModelField> modelFields = new List<ModelField>();
+
+                foreach (var col in input.Columns)
+                {
+                    modelFields.Add(new ModelField()
+                    {
+                        DataTypeId = col.Type,
+                        IsOutput = col.ColumnName == input.LabelColumn,
+                        ModelId = curModel.ModelId,
+                        Name = col.ColumnName
+                    });
+                }
+
+                var insertModelFieldsResults = ModelField.InsertBulk(db, modelFields);
+
+                if (insertModelFieldsResults.Success)
+                {
+                    return modelInsertReults;
+                }
+                else
+                {
+                    return new ReturnResult<Model>()
+                    {
+                        Success = false,
+                        Exception = insertModelFieldsResults.Exception,
+                        ErrorMessage = insertModelFieldsResults.ErrorMessage
+                    };
+                }
             }
-            else
+            catch(Exception e)
             {
-                return new ReturnResult<Model>()
+                return modelBuilderResults = new ReturnResult<Model>()
                 {
                     Success = false,
-                    Exception = insertModelFieldsResults.Exception,
-                    ErrorMessage = insertModelFieldsResults.ErrorMessage
+                    Exception = e,
+                    ErrorMessage = "There was an error training the model"
                 };
             }
         }

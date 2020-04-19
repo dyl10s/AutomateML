@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NPoco;
 using Website.Models;
+using Website.Objects;
 
 namespace Website.Controllers
 {
@@ -18,9 +19,9 @@ namespace Website.Controllers
             Db = db;
         }
 
-        public JsonResult GetModelFields(int modelId)
+        public ReturnResult<List<ModelField>> GetModelFields(int modelId)
         {
-            return Json(ModelField.GetFieldsByModelId(Db, modelId));
+            return ModelField.GetFieldsByModelId(Db, modelId);
         }
     }
 }

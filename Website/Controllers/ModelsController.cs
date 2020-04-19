@@ -28,41 +28,41 @@ namespace Website.Controllers
             Configuration = configuration;
         }
 
-        public JsonResult GetTopTen()
+        public ReturnResult<List<Model>> GetTopTen()
         {
-            return Json(Model.GetTopModels(Db, 10));
+            return Model.GetTopModels(Db, 10);
         }
 
-        public JsonResult SearchModel(string query)
+        public ReturnResult<List<Model>> SearchModel(string query)
         {
-            return Json(Model.SearchModelsByName(Db, query));
+            return Model.SearchModelsByName(Db, query);
         }
 
-        public JsonResult GetModel(int modelId)
+        public ReturnResult<Model> GetModel(int modelId)
         {
-            return Json(Model.GetModelById(Db, modelId));
+            return Model.GetModelById(Db, modelId);
         }
 
         [HttpPost, Authorize]
-        public JsonResult VoteForModel(int modelId)
+        public ReturnResult<bool> VoteForModel(int modelId)
         {
-            return Json(ModelVote.ToggleVote(Db, Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)), modelId));
+            return ModelVote.ToggleVote(Db, Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)), modelId);
         }
 
         [HttpGet, Authorize]
-        public JsonResult HasVotedForModel(int modelId)
+        public ReturnResult<bool> HasVotedForModel(int modelId)
         {
-            return Json(ModelVote.HasVotedForModel(Db, Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)), modelId));
+            return ModelVote.HasVotedForModel(Db, Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)), modelId);
         }
 
         [HttpGet]
-        public JsonResult GetModelVotes(int modelId)
+        public ReturnResult<int> GetModelVotes(int modelId)
         {
-            return Json(ModelVote.GetModelVotes(Db, modelId));
+            return ModelVote.GetModelVotes(Db, modelId);
         }
 
         [HttpPost, Authorize]
-        public JsonResult StartTraining([FromBody]TrainInput input)
+        public ReturnResult<Model> StartTraining([FromBody]TrainInput input)
         {
             var results = Model.TrainModel(
                                 Db, 
@@ -70,15 +70,15 @@ namespace Website.Controllers
                                 Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)),
                                 Configuration["ModelBuilderUrl"]);
 
-            return Json(results);
+            return results;
         }
 
         [HttpPost, Authorize]
-        public JsonResult GetPrediction([FromBody]PredictionInput input)
+        public ReturnResult<dynamic> GetPrediction([FromBody]PredictionInput input)
         {
             var results = Model.PredictModel(Db, input);
 
-            return Json(results);
+            return results;
         }
     }
 }
