@@ -10,11 +10,16 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6 mb-3">
-                            <label>Model Name:</label>
+                        <div class="col-lg-6 col-sm-12 mb-3">
+                            <label class="w-100">
+                                Model Name:
+                                <span class="float-right">
+                                    <app-help-tip [Text]="ModelNameTooltip"></app-help-tip>
+                                </span>  
+                            </label>
                             <input class="form-control" type="text" [(ngModel)]='trainModel.Title' maxlength="100">
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-lg-6 col-sm-12 mb-3">
                             <label class="w-100">Model Type: 
                                 <span class="float-right">
                                     <app-help-tip [Text]="ModelTypeTooltip"></app-help-tip>
@@ -27,7 +32,12 @@
                             </select>
                         </div>
                         <div class="col-12">
-                            <label>Model Description:</label>
+                            <label class="w-100">
+                                Model Description:
+                                <span class="float-right">
+                                    <app-help-tip [Text]="ModelDescriptionTooltip"></app-help-tip>
+                                </span>  
+                            </label>
                             <textarea class="form-control" rows="5" [(ngModel)]='trainModel.Description'></textarea>
                         </div>
                         <div class="col-12 mt-3">
@@ -46,11 +56,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-4 mb-3" *ngFor="let column of this.trainModel.Columns">
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3" *ngFor="let column of this.trainModel.Columns">
                             <label class="w-100">
                                 {{ column.ColumnName }}
                                 <span class="float-right">
-                                    <app-help-tip [Text]="ModelTypeTooltip"></app-help-tip>
+                                    <app-help-tip [Text]="DataTypeTooltip"></app-help-tip>
                                 </span>  
                             </label>
                             <select class="form-control" [(ngModel)]='column.Type'>

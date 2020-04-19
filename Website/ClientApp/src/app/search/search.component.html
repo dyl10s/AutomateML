@@ -13,13 +13,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
-            <div *ngFor="let result of this.results" class="pb-2">
+            <div *ngFor="let result of this.results" class="pb-2 col-lg-6 col-md-12">
                 <app-search-item [modelItem]="result"></app-search-item>
             </div>
             <div *ngIf="this.hasSearched && this.results.length == 0">
                 <h5 class="w-100 text-center">No Results</h5>
             </div>
-        </div>
     </div>
 </div>

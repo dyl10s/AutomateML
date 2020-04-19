@@ -131,6 +131,16 @@ export class ModelBuilderComponent implements OnInit {
   <strong>Regression</strong> - Number
   `
 
+  ModelDescriptionTooltip: string = `
+  This is the description will be displayed on the models page. It is best
+  to inform the users of what each field in the data is for and what your goal is.
+  This will allow others to use your work without any hassle or guessing.
+  `
+
+  ModelNameTooltip: string = `
+  This is the name of the model you are training. This is also how people will locate your model in the search.
+  `
+
 }
 
 class TrainInput {

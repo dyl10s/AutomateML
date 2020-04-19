@@ -59,5 +59,10 @@
             [Requires Auth] This makes a prediction on an already existing model
             </summary>
         </member>
+        <member name="M:Website.Controllers.ModelsController.PublicPrediction(System.Int32,System.String)">
+            <summary>
+            This makes a prediction on an already existing model used for intigration with other applications
+            </summary>
+        </member>
     </members>
 </doc>

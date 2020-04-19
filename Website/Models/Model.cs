@@ -66,7 +66,14 @@ namespace Website.Models
             try
             {
                 results.Item = db.Fetch<Model>
-                    ("SELECT m.*, a.Username FROM Model m JOIN Account a ON a.AccountId = m.CreatedBy WHERE Name LIKE @0", "%" + query + "%");
+                    ($@"
+                        SELECT m.*,a.Username, COUNT(mv.ModelVoteId) as 'Votes' FROM Model m 
+                        LEFT JOIN ModelVote mv ON mv.ModelId = m.ModelId 
+                        JOIN Account a ON a.AccountId = m.CreatedBy
+                        WHERE Name LIKE @0
+                        GROUP BY m.ModelId, a.Username, m.FileStoreId, m.Accuracy, m.CreatedBy, m.CreatedOn, m.[Description], m.[Name], m.[Rows]
+                        ORDER BY COUNT(mv.ModelVoteId) DESC 
+                        ", "%" + query + "%");
 
                 results.Success = true;
             }

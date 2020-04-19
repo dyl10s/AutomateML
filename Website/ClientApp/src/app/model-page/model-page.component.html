@@ -12,37 +12,37 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row pb-0">
-                        <div class="col-6">
+                        <div class="col-8">
                             <h2>Statistics</h2>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div *ngIf="!isLoggedin" class="float-right pt-2">
-                                Votes ({{this.modelVotes}})
+                                Votes: {{this.modelVotes}}
                             </div>
                             <button *ngIf="!votedForModel && isLoggedin" class="btn btn-primary float-right" (click)="ToggleVote()">
-                                Vote ({{this.modelVotes}})
+                                <i class="fa fa-thumbs-o-up"></i> ({{this.modelVotes}})
                             </button>
                             <button *ngIf="votedForModel && isLoggedin" class="btn btn-primary float-right" (click)="ToggleVote()">
-                                Remove Vote ({{this.modelVotes}})
+                                <i class="fa fa-thumbs-o-down"></i> ({{this.modelVotes}})
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row text-center">
-                        <div class="col-3">
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
                             Creator
                             <h4>{{this.currentModel.username}}</h4>
                         </div>
-                        <div class="col-3">
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
                             Accuracy 
                             <h4>{{this.currentModel.accuracy * 100 | number:'2.2-2'}}%</h4>
                         </div>
-                        <div class="col-3">
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-2">
                             Data Rows 
                             <h4>{{this.currentModel.rows}}</h4>
                         </div>
-                        <div class="col-3">
+                        <div class="col-lg-3 col-md-6 col-sm-12">
                             Trained On 
                             <h4>{{this.currentModel.createdOn | date:'MM/dd/yyyy'}}</h4>
                         </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div *ngFor="let result of this.GetInputFields()" class="col-3 pb-3">
+                        <div *ngFor="let result of this.GetInputFields()" class="col-lg-3 col-md-6 col-sm-12 pb-3">
                             <div>
                                 {{result.name}}
                             </div>
@@ -113,7 +113,45 @@
                     <h2>API</h2>
                 </div>
                 <div class="card-body">
-                    API details here
+                    <div *ngIf="isLoggedin">
+                        You can use the Automate.ML public API to make predictions on this model in your own application
+                        <br/>
+                        <br/>
+                        <div>Endpoint: https://www.automate.ml/api/models/PublicPrediction?modelId=<span class="text-warning">[ModelId]</span>&data=<span class="text-success">[PredictionData]</span>
+                        </div>
+                        <div class="w-100">Request Type: Get</div>
+                        <div class="w-100">Query Parameters: </div>
+                        <ul>
+                            <li><strong class="text-warning">modelId</strong> - The ID of the model you are using in this case it is {{this.modelId}}</li>
+                            <li>
+                                <strong class="text-success">data</strong>  - Comma separated list of the data for the prediction. 
+                                The data must be in the following order,
+                                <ul>
+                                    <li *ngFor="let item of this.GetInputFields()">
+                                        {{item.name}} - 
+                                        <span *ngIf="item.dataTypeId == 9">number</span>
+                                        <span *ngIf="item.dataTypeId == 11">text</span>
+                                        <span *ngIf="item.dataTypeId == 12">true/false</span>
+                                    </li>
+                                </ul>
+                                this data can be quoted if you need to have spaces or commas in your data. <br/>
+                                Examples:
+                                <ul>
+                                    <li>1,2,3,4</li>
+                                    <li>"1","2","3","4"</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div>
+                            You can test this call on our developer documentation.
+                            <div>
+                                <a class="btn btn-primary" href="/swagger">Go To Developer Documentation</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!isLoggedin">
+                        Login To use this model in your own project
+                    </div>
                 </div>
             </div>
         </div>

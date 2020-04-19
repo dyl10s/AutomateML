@@ -109,5 +109,22 @@ namespace Website.Controllers
 
             return results;
         }
+
+        /// <summary>
+        /// This makes a prediction on an already existing model used for intigration with other applications
+        /// </summary>
+        [HttpGet]
+        public ReturnResult<dynamic> PublicPrediction(int modelId, string data)
+        {
+            var input = new PredictionInput()
+            {
+                CsvData = data,
+                ModelId = modelId
+            };
+
+            var results = Model.PredictModel(Db, input);
+
+            return results;
+        }
     }
 }
