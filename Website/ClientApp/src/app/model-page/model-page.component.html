@@ -88,8 +88,11 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn btn-primary btn-block" (click)="PredictModel()">
+                            <button *ngIf="isLoggedin" class="btn btn-primary btn-block" (click)="PredictModel()">
                                 Make Prediction
+                            </button>
+                            <button *ngIf="!isLoggedin" class="btn btn-primary btn-block disabled">
+                                Login To Test This Model
                             </button>
                         </div>
                     </div>
