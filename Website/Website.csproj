@@ -13,6 +13,10 @@
     <UserSecretsId>5fdb7201-2df2-48d9-82b4-9a3b4879bad8</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\dylan\source\repos\AutomaticML\Website\Website.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="McMaster.AspNetCore.LetsEncrypt" Version="0.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
@@ -21,6 +25,7 @@
     <PackageReference Include="Microsoft.ML.AutoML" Version="0.16.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="NPoco" Version="4.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -19,6 +19,10 @@ namespace Website.Controllers
             Db = db;
         }
 
+        /// <summary>
+        /// This gets all the model input/output items for a specific model.
+        /// </summary>
+        [HttpGet]
         public ReturnResult<List<ModelField>> GetModelFields(int modelId)
         {
             return ModelField.GetFieldsByModelId(Db, modelId);

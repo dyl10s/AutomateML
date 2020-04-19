@@ -15,7 +15,11 @@
                             <input class="form-control" type="text" [(ngModel)]='trainModel.Title' maxlength="100">
                         </div>
                         <div class="col-6 mb-3">
-                            <label>Model Type:</label>
+                            <label class="w-100">Model Type: 
+                                <span class="float-right">
+                                    <app-help-tip [Text]="ModelTypeTooltip"></app-help-tip>
+                                </span>  
+                            </label>
                             <select class="form-control" [(ngModel)]='trainModel.ModelType'>
                                 <option [ngValue]="1" [selected]="1 === trainModel.ModelType">Binary Classification</option>
                                 <option [ngValue]="2" [selected]="2 === trainModel.ModelType">Multiclass Classification</option>
@@ -43,7 +47,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4 mb-3" *ngFor="let column of this.trainModel.Columns">
-                            <label>{{ column.ColumnName }}</label>
+                            <label class="w-100">
+                                {{ column.ColumnName }}
+                                <span class="float-right">
+                                    <app-help-tip [Text]="ModelTypeTooltip"></app-help-tip>
+                                </span>  
+                            </label>
                             <select class="form-control" [(ngModel)]='column.Type'>
                                 <option [ngValue]="9" [selected]="9 === column.Type">Number</option>
                                 <option [ngValue]="11" [selected]="11 === column.Type">Text</option>
@@ -52,7 +61,12 @@
                             </select>
                         </div>
                         <div class="col-12">
-                            <label>Select Output Column</label>
+                            <label class="w-100">
+                                Select Output Column
+                                <span class="float-right">
+                                    <app-help-tip [Text]="OutputTooltip"></app-help-tip>
+                                </span>  
+                            </label>
                             <select class="form-control" [(ngModel)]='trainModel.LabelColumn'>
                                 <option *ngFor="let column of this.trainModel.Columns">{{ column.ColumnName }}</option>
                             </select>

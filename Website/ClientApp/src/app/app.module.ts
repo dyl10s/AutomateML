@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from "@auth0/angular-jwt";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap'; 
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -15,6 +16,7 @@ import { ModelBuilderComponent } from './model-builder/model-builder.component';
 import { AuthguardService } from '../services/authguard/authguard.service';
 import { SearchItemComponent } from './search-item/search-item.component';
 import { ModelPageComponent } from './model-page/model-page.component';
+import { HelpTipComponent } from './help-tip/help-tip.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -30,9 +32,11 @@ export function tokenGetter() {
     LoginRegisterComponent,
     ModelBuilderComponent,
     SearchItemComponent,
-    ModelPageComponent
+    ModelPageComponent,
+    HelpTipComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule.withServerTransition({ appId: 'app' }),
     HttpClientModule,
     FormsModule,

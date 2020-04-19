@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Website</name>
+    </assembly>
+    <members>
+        <member name="M:Website.Controllers.AccountController.Register(Website.Models.Account)">
+            <summary>
+            This allows you to register an account on Automated.ML
+            </summary>
+        </member>
+        <member name="M:Website.Controllers.AccountController.Login(Website.Models.Account)">
+            <summary>
+            This allows you to login to an account on Automated.ML It returns the JWT token that should be used on autorized requests.
+            </summary>
+        </member>
+        <member name="M:Website.Controllers.ModelFieldController.GetModelFields(System.Int32)">
+            <summary>
+            This gets all the model input/output items for a specific model.
+            </summary>
+        </member>
+        <member name="M:Website.Controllers.ModelsController.GetTopTen">
+            <summary>
+            This gets the top 10 models by votes.
+            </summary>
+        </member>
+        <member name="M:Website.Controllers.ModelsController.SearchModel(System.String)">
+            <summary>
+            This searches for models based on title.
+            </summary>
+        </member>
+        <member name="M:Website.Controllers.ModelsController.GetModel(System.Int32)">
+            <summary>
+            This gets the entire model object with the modelId
+            </summary>
+        </member>
+        <member name="M:Website.Controllers.ModelsController.VoteForModel(System.Int32)">
+            <summary>
+            [Requires Auth] This allows the user to vote for a model.
+            </summary>
+        </member>
+        <member name="M:Website.Controllers.ModelsController.HasVotedForModel(System.Int32)">
+            <summary>
+            [Requires Auth] This checks if the user has voted for a model already
+            </summary>
+        </member>
+        <member name="M:Website.Controllers.ModelsController.GetModelVotes(System.Int32)">
+            <summary>
+            This gets the total number of model votes
+            </summary>
+        </member>
+        <member name="M:Website.Controllers.ModelsController.StartTraining(Website.Models.TrainInput)">
+            <summary>
+            [Requires Auth] This trains a new model with the TrainInput parameter
+            </summary>
+        </member>
+        <member name="M:Website.Controllers.ModelsController.GetPrediction(Website.Models.PredictionInput)">
+            <summary>
+            [Requires Auth] This makes a prediction on an already existing model
+            </summary>
+        </member>
+    </members>
+</doc>

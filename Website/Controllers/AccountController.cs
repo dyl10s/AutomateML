@@ -24,6 +24,11 @@ namespace Website.Controllers
             Db = db;
         }
 
+
+        /// <summary>
+        /// This allows you to register an account on Automated.ML
+        /// </summary>
+        [HttpPost]
         public ReturnResult<string> Register([FromBody]Account account)
         {
             var results = Account.RegisterAccount(Db, account);
@@ -53,6 +58,10 @@ namespace Website.Controllers
             }
         }
 
+        /// <summary>
+        /// This allows you to login to an account on Automated.ML It returns the JWT token that should be used on autorized requests.
+        /// </summary>
+        [HttpPost]
         public ReturnResult<string> Login([FromBody]Account account)
         {
             var results = Account.Login(Db, account);

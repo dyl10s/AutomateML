@@ -92,6 +92,45 @@ export class ModelBuilderComponent implements OnInit {
   }
 
 
+  ModelTypeTooltip: string = `
+  This is the type of model you want to train. <br/><br/>
+  
+  <strong>Binary Classification</strong> - This is for prediction of a true or false outcome. Your
+  output column must be true / false. For example, whether a team will win or loose
+  a basketball game based on half time score and timeouts used.<br/><br/>
+      
+  <strong>Multiclass Classification</strong> - This is when your output is multiple groups. For example, 
+  the prediction of a flower type based on the dimensions of that flower.<br/><br/>
+      
+  <strong>Regression</strong> - This is when your output is a number. For example, 
+  the price of a t-shirt given the brand, color and gender.
+  `
+
+  DataTypeTooltip: string = `
+  This is the data type of the row in your csv file. <br/><br/>
+  
+  <strong>Number</strong> - This is any numerical value including decimals.<br/><br/>
+      
+  <strong>Text</strong> - This is any value that does not fit into any other data type.<br/><br/>
+      
+  <strong>True/False</strong> - This is for a true/false value. The text should be 'true' and 'false' in your data
+  or '0' and '1'.<br/><br/>
+
+  <strong>Ignore</strong> - Some times you have a value that you don't want to use for your model. You can mark this as ignore and
+  it will not be used for training.
+  `
+
+  OutputTooltip: string = `
+  This is what you want the computer to try and predict.
+  Different model types require different output types. <br/><br/>
+
+  <strong>Binary Classification</strong> - True/False<br/><br/>
+      
+  <strong>Multiclass Classification</strong> - Anything except ignore<br/><br/>
+      
+  <strong>Regression</strong> - Number
+  `
+
 }
 
 class TrainInput {

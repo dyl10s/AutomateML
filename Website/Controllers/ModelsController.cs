@@ -28,39 +28,65 @@ namespace Website.Controllers
             Configuration = configuration;
         }
 
+
+        /// <summary>
+        /// This gets the top 10 models by votes.
+        /// </summary>
+        [HttpGet]
         public ReturnResult<List<Model>> GetTopTen()
         {
             return Model.GetTopModels(Db, 10);
         }
 
+
+        /// <summary>
+        /// This searches for models based on title.
+        /// </summary>
+        [HttpGet]
         public ReturnResult<List<Model>> SearchModel(string query)
         {
             return Model.SearchModelsByName(Db, query);
         }
 
+        /// <summary>
+        /// This gets the entire model object with the modelId
+        /// </summary>
+        [HttpGet]
         public ReturnResult<Model> GetModel(int modelId)
         {
             return Model.GetModelById(Db, modelId);
         }
 
+        /// <summary>
+        /// [Requires Auth] This allows the user to vote for a model.
+        /// </summary>
         [HttpPost, Authorize]
         public ReturnResult<bool> VoteForModel(int modelId)
         {
             return ModelVote.ToggleVote(Db, Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)), modelId);
         }
 
+        /// <summary>
+        /// [Requires Auth] This checks if the user has voted for a model already
+        /// </summary>
         [HttpGet, Authorize]
         public ReturnResult<bool> HasVotedForModel(int modelId)
         {
             return ModelVote.HasVotedForModel(Db, Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)), modelId);
         }
 
+        /// <summary>
+        /// This gets the total number of model votes
+        /// </summary>
         [HttpGet]
         public ReturnResult<int> GetModelVotes(int modelId)
         {
             return ModelVote.GetModelVotes(Db, modelId);
         }
 
+        /// <summary>
+        /// [Requires Auth] This trains a new model with the TrainInput parameter
+        /// </summary>
         [HttpPost, Authorize]
         public ReturnResult<Model> StartTraining([FromBody]TrainInput input)
         {
@@ -73,6 +99,9 @@ namespace Website.Controllers
             return results;
         }
 
+        /// <summary>
+        /// [Requires Auth] This makes a prediction on an already existing model
+        /// </summary>
         [HttpPost, Authorize]
         public ReturnResult<dynamic> GetPrediction([FromBody]PredictionInput input)
         {
