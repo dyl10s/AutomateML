@@ -20,16 +20,16 @@ namespace ModelBuilderServerless
 {
     public static class Train
     {
-        [FunctionName("Train")]
-        public static ReturnResult<Model> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req, ILogger log)
-        {
-            //When debugging this is stored in local.settings.json under a subsection "Values"
-            var db = new Database(
+        //When debugging this is stored in local.settings.json under a subsection "Values"
+        public static IDatabase db = new Database(
                     $"Data Source={Environment.GetEnvironmentVariable("DatabaseServer")};Initial Catalog={Environment.GetEnvironmentVariable("DatabaseName")};User ID={Environment.GetEnvironmentVariable("DatabaseUsername")};Password={Environment.GetEnvironmentVariable("DatabasePassword")};MultipleActiveResultSets=True;",
                     DatabaseType.SqlServer2012,
                     SqlClientFactory.Instance
                     );
 
+        [FunctionName("Train")]
+        public static ReturnResult<Model> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req, ILogger log)
+        {
             var dataFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
 
             try
