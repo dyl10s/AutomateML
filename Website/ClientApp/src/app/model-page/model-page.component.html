@@ -91,7 +91,7 @@
                             <button *ngIf="isLoggedin" class="btn btn-primary btn-block" (click)="PredictModel()">
                                 Make Prediction
                             </button>
-                            <button *ngIf="!isLoggedin" class="btn btn-primary btn-block disabled">
+                            <button *ngIf="!isLoggedin" class="btn btn-primary btn-block" [routerLink]="['/login']">
                                 Login To Test This Model
                             </button>
                         </div>

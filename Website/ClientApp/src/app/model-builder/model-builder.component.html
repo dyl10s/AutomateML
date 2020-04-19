@@ -95,7 +95,7 @@
                     <div>Accuracy of model based on training data is %{{ (this.resultsModel.accuracy * 100) | number:'2.2-2' }}</div>
                 </div>
                 <div class="modal-footer float-right">
-                    <button class="btn btn-primary" (click)="this.trainComplete = false">View Model</button>
+                    <a class="btn btn-primary" [routerLink]="['/model/' + this.resultsModel.modelId]">View Model</a>
                 </div>
             </div>
         </div>
