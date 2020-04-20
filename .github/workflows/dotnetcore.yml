@@ -15,7 +15,7 @@ jobs:
         dotnet-version: 3.1.100
     - name: install angular cli
       run: |
-          npm install -g @angular/cli --latest
+          sudo npm install -g @angular/cli --latest
           ng config -g cli.warnings.versionMismatch false
     - name: Run ModelBuilderServerless tests
       run: dotnet test ModelBuilderServerless.Tests
