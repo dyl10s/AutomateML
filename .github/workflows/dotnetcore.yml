@@ -17,6 +17,8 @@ jobs:
       run: dotnet test ModelBuilderServerless.Tests
     - name: Run website tests
       run: dotnet test Website.Tests
+    - name: Run Angular tests
+      run: cd Website/ClientApp && ng test --progress false --watch false && cd .. && cd ..
     - name: Publish website
       run: dotnet publish Website -r linux-x64 --self-contained true -o publish
     - name: Stop website

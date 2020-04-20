@@ -79,7 +79,7 @@ namespace Website.Controllers.Tests
 
         [TestMethod()]
         //This needs a valid endpoint to run so we can assume it should always fail
-        //indepth tests will be done at the model level
+        //indepth tests should be done manually
         public void StartTrainingTest()
         {
             MockConfig.Setup(x => x[It.IsAny<string>()]).Returns("");
@@ -88,7 +88,7 @@ namespace Website.Controllers.Tests
 
         [TestMethod()]
         //This needs a valid model to run so we can assume it should always fail
-        //indepth tests will be done at the model level
+        //indepth tests should be done manually
         public void GetPredictionTest()
         {
             Assert.IsFalse(controller.GetPrediction(new Models.PredictionInput()).Success);
