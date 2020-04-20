@@ -9,9 +9,14 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Databa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelBuilderServerless", "ModelBuilderServerless\ModelBuilderServerless.csproj", "{D19B7F58-1D03-427C-B4E8-33E68A21E470}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website.Tests", "Website.Tests\Website.Tests.csproj", "{7A3F21D5-BF22-4A42-98BC-283D776CEE36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Website.Tests", "Website.Tests\Website.Tests.csproj", "{7A3F21D5-BF22-4A42-98BC-283D776CEE36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelBuilderServerless.Tests", "ModelBuilderServerless.Tests\ModelBuilderServerless.Tests.csproj", "{AE7AC1B6-0AF1-43BA-93D5-21DE2884C5FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelBuilderServerless.Tests", "ModelBuilderServerless.Tests\ModelBuilderServerless.Tests.csproj", "{AE7AC1B6-0AF1-43BA-93D5-21DE2884C5FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9DBB7937-0011-4B1A-9AD3-69E371F3A3F6}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
