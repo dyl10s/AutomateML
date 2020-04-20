@@ -13,10 +13,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: Angular Full CI
-      uses: colbyhill21/angular-full-ci@v1.0
-      with:
-        testcommand: run test
+    - name: install angular cli
+      run: |
+          npm install -g @angular/cli --latest
+          ng config -g cli.warnings.versionMismatch false
     - name: Run ModelBuilderServerless tests
       run: dotnet test ModelBuilderServerless.Tests
     - name: Run website tests
