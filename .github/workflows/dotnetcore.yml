@@ -13,10 +13,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: install angular cli
+    - name: Install angular cli
       run: |
           sudo npm install -g @angular/cli --latest
           ng config -g cli.warnings.versionMismatch false
+    - name: Run Angular Tests
+      run: cd Website/ClientApp && ng test --progress false --watch false && cd .. && cd ..
     - name: Run ModelBuilderServerless tests
       run: dotnet test ModelBuilderServerless.Tests
     - name: Run website tests
