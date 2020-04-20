@@ -11,6 +11,7 @@ import { Model } from 'src/objects/Model';
 
 export class SearchComponent implements OnInit {
 
+  searching: boolean = false;
   hasSearched = false;
   results: Model[] = [];
   searchQuery: string = "";
@@ -23,12 +24,18 @@ export class SearchComponent implements OnInit {
     if(this.searchQuery.trim() != ""){
       this.results = [];
       this.hasSearched = false;
+      this.searching = true;
 
-      this.http.get<ReturnResult<Model[]>>(this.BaseUrl + "api/Models/SearchModel?query=" + this.searchQuery).subscribe((data: ReturnResult<Model[]>) => {
+      this.http.get<ReturnResult<Model[]>>(this.BaseUrl + "api/Models/SearchModel?query=" + this.searchQuery).subscribe(
+        (data: ReturnResult<Model[]>) => {
         data.item.forEach(x => {
           this.results.push(x);
         });
         this.hasSearched = true;
+        this.searching = false;
+      }, error => {
+        this.hasSearched = true;
+        this.searching = false;
       });
     }
   }

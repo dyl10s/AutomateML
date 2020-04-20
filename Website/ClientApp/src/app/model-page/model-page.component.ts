@@ -14,6 +14,7 @@ import { GlobalState } from 'src/services/global-state/global-state.service';
 })
 export class ModelPageComponent {
 
+  makingPrediction: boolean = false;
   votedForModel: boolean = false;
   modelVotes: number = 0;
   modelId: number;
@@ -91,6 +92,8 @@ export class ModelPageComponent {
   }
 
   PredictModel(){
+    this.makingPrediction = true;
+    this.lastPrediction = null;
     let predictionData: string = "";
     this.modelFields.forEach(e => {
       if(e.isOutput){
@@ -107,10 +110,14 @@ export class ModelPageComponent {
     predictionInfo.CsvData = predictionData;
 
     this.Http.post<ReturnResult<any>>(this.BaseUrl + "api/Models/GetPrediction", predictionInfo, { headers: this.headers }).subscribe(
-      ((success: ReturnResult<any>) => {
+      (success: ReturnResult<any>) => {
         this.lastPrediction = success.item;
-      })
-    );
+        this.makingPrediction = false;
+      },
+      (error) => {
+        this.makingPrediction = false;
+        this.lastPrediction = 'There was an error';
+      });
   }
 
 }

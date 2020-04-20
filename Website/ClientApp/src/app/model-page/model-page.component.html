@@ -102,6 +102,9 @@
                             <h5>{{this.lastPrediction}}</h5>
                         </div>
                     </div>
+                    <div class="container text-center mt-5" *ngIf="this.makingPrediction == true">
+                        <span class="spinner-border spinner-border-lg" role="status" aria-hidden="true"></span>
+                    </div>
                 </div>
             </div>
         </div>

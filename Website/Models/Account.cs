@@ -100,7 +100,6 @@ namespace Website.Models
 
         private static byte[] HashPassword(string rawPassword)
         {
-            //TODO: Add salt
             byte[] getBytesFromRow = Encoding.UTF8.GetBytes(rawPassword);
             byte[] hash = new SHA1CryptoServiceProvider().ComputeHash(getBytesFromRow);
             return hash;
