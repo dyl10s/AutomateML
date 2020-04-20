@@ -18,7 +18,7 @@ jobs:
           sudo npm install -g @angular/cli --latest
           ng config -g cli.warnings.versionMismatch false
     - name: Run Angular Tests
-      run: cd Website/ClientApp && ng test --progress false --watch false && cd .. && cd ..
+      run: cd Website/ClientApp && npm i && ng test --progress false --watch false && cd .. && cd ..
     - name: Run ModelBuilderServerless tests
       run: dotnet test ModelBuilderServerless.Tests
     - name: Run website tests
