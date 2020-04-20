@@ -8,15 +8,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Setup Angular
-      run: npm install -g @angular/cli
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: Run Angular tests
-      run: cd Website/ClientApp && ng test --progress false --watch false && cd .. && cd ..
+    - name: Angular Full CI
+      uses: colbyhill21/angular-full-ci@v1.0
+      with:
+        testcommand: run test
     - name: Run ModelBuilderServerless tests
       run: dotnet test ModelBuilderServerless.Tests
     - name: Run website tests
