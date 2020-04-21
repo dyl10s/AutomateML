@@ -14,6 +14,8 @@ import { GlobalState } from 'src/services/global-state/global-state.service';
 })
 export class ModelPageComponent {
 
+  predictFormError: string = null;
+  predictionError: string = "";
   makingPrediction: boolean = false;
   votedForModel: boolean = false;
   modelVotes: number = 0;
@@ -75,6 +77,20 @@ export class ModelPageComponent {
     return inputs;
   }
 
+  GetOutputField(): string{
+    let results = "";
+
+    if(this.modelFields != null){
+      this.modelFields.forEach(element => {
+        if(element.isOutput){
+          results = element.name;
+        }
+      });
+    }
+
+    return results;
+  }
+
   ToggleVote(){
     this.Http.post<ReturnResult<boolean>>(this.BaseUrl + "api/Models/VoteForModel?modelId=" + this.modelId, null, { headers: this.headers }).subscribe(
       ((success: ReturnResult<boolean>) => {
@@ -94,29 +110,48 @@ export class ModelPageComponent {
   PredictModel(){
     this.makingPrediction = true;
     this.lastPrediction = null;
+    this.predictionError = null;
+    this.predictFormError = null;
+
     let predictionData: string = "";
     this.modelFields.forEach(e => {
       if(e.isOutput){
         predictionData += '"", ';
-      }else{
+      }else if(e.dataTypeId != 1){
+        if(!e.currentValue || e.currentValue.length == 0){
+          this.predictFormError = "Please enter all the fields.";
+          this.makingPrediction = false;
+        }
         predictionData += '"' + e.currentValue + '", '
       }
     })
+
+    if(!this.makingPrediction){
+      return;
+    }
 
     predictionData = predictionData.substring(0, predictionData.length - 2);
 
     let predictionInfo : PredictInput = new PredictInput();
     predictionInfo.ModelId = this.modelId;
     predictionInfo.CsvData = predictionData;
+    
 
     this.Http.post<ReturnResult<any>>(this.BaseUrl + "api/Models/GetPrediction", predictionInfo, { headers: this.headers }).subscribe(
       (success: ReturnResult<any>) => {
-        this.lastPrediction = success.item;
+        if(success.success){
+          this.lastPrediction = success.item;
+        }else{
+          this.lastPrediction = null;
+          this.predictionError = success.errorMessage;
+        }
+        
         this.makingPrediction = false;
       },
       (error) => {
         this.makingPrediction = false;
-        this.lastPrediction = 'There was an error';
+        this.lastPrediction = null;
+        this.predictionError = "There was an error making the prediction";
       });
   }
 

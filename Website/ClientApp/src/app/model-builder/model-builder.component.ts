@@ -12,6 +12,8 @@ import { Model } from '../../objects/Model';
 
 export class ModelBuilderComponent implements OnInit {
 
+  errorModal: boolean = false;
+  errorText: string = "";
   trainModel: TrainInput = new TrainInput();
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   modalShowing: boolean = false;
@@ -69,6 +71,58 @@ export class ModelBuilderComponent implements OnInit {
   }
 
   startTraining(){
+
+    //Validation
+    if(this.trainModel.Title == null || this.trainModel.Title.length == 0){
+      this.errorText = "Please enter a Model Name.";
+      this.errorModal = true;
+      return;
+    }
+
+    if(this.trainModel.ModelType == null || (![1, 2, 3].includes(this.trainModel.ModelType))){
+      this.errorText = "Please enter a Model Type.";
+      this.errorModal = true;
+      return;
+    }
+
+    if(this.trainModel.LabelColumn == null || this.trainModel.LabelColumn.length == 0){
+      this.errorText = "Please select an Output Column.";
+      this.errorModal = true;
+      return;
+    }
+
+    this.trainModel.Columns.forEach(x => {
+      if(x.ColumnName === this.trainModel.LabelColumn){
+        if(x.Type == 1){
+          this.errorText = "The output column can't be marked ignore value.";
+          this.errorModal = true;
+          return;
+        }
+
+        //Binary
+        if(this.trainModel.ModelType == 1){
+          if(x.Type != 12){ //True/False
+            this.errorText = "The output column must be marked 'True/False' for Binary Classification";
+            this.errorModal = true;
+            return;
+          }
+        }
+
+        //Regression
+        if(this.trainModel.ModelType == 3){
+          if(x.Type != 9){ //Number
+            this.errorText = "The output column must be marked 'Number' for Regression";
+            this.errorModal = true;
+            return;
+          }
+        }
+      }
+    });
+
+    if(this.errorModal){
+      return;
+    }
+
     this.modalShowing = true;
 
     this.trainModel.HasHeaders = true;
@@ -81,10 +135,18 @@ export class ModelBuilderComponent implements OnInit {
           if(success.success){
             this.trainComplete = true;
             this.resultsModel = success.item;
+          }else{
+            this.errorModal = true;
+            console.log(success.exception);
+            this.errorText = `
+              An unknown error has occured. Make sure there are no errors in your csv, and all data types are correctly selected. Blank values in CSVs
+              can sometimes cause problems.
+              `;
           }
         },
         error => {
-          console.log(error);
+          this.errorModal = true;
+          this.errorText = "An unknown error has occured. Please try again.";
           this.modalShowing = false;
         });
 

@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-sm-12 mb-3">
                             <label class="w-100">
-                                Model Name:
+                                Model Name <span class="text-danger">*</span>
                                 <span class="float-right">
                                     <app-help-tip [Text]="ModelNameTooltip"></app-help-tip>
                                 </span>  
@@ -20,7 +20,7 @@
                             <input class="form-control" type="text" [(ngModel)]='trainModel.Title' maxlength="100">
                         </div>
                         <div class="col-sm-12 mb-3">
-                            <label class="w-100">Model Type: 
+                            <label class="w-100">Model Type <span class="text-danger">*</span>
                                 <span class="float-right">
                                     <app-help-tip [Text]="ModelTypeTooltip"></app-help-tip>
                                 </span>  
@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-12">
                             <label class="w-100">
-                                Model Description:
+                                Model Description
                                 <span class="float-right">
                                     <app-help-tip [Text]="ModelDescriptionTooltip"></app-help-tip>
                                 </span>  
@@ -56,15 +56,10 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 pb-5">
-                            <div class="pb-4">This is the data type of the row in your csv file.</div>
-                            <div class="pb-4">
-                                <strong>Number</strong> - Numerical values including decimals.<br/>
-                                <strong>True/False</strong> - True/False or 1/0 value <br/>
-                                <strong>Text</strong> - A text value<br/>
-                                <strong>Ignore Value</strong> - Do not use this value <br/>
+                        <div class="col-12 pb-1">
+                            <div class="pb-2">
+                                If you would not like a row to be included in the model you can select ignore value in the drop down.
                             </div>
-                            For additional information click the question mark next to each dropdown.
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 mb-3" *ngFor="let column of this.trainModel.Columns">
                             <label class="w-100">
@@ -82,7 +77,7 @@
                         </div>
                         <div class="col-12">
                             <label class="w-100">
-                                Select Output Column
+                                Output Column  <span class="text-danger">*</span>
                                 <span class="float-right">
                                     <app-help-tip [Text]="OutputTooltip"></app-help-tip>
                                 </span>  
@@ -111,6 +106,24 @@
                     <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="this.errorModal">
+    <div class="modal animated fadeInDown show" id="LoadingModal" data-backdrop="static" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Error</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <label>{{this.errorText}}</label>
+                </div>
+                <div class="modal-footer float-right">
+                    <button class="btn btn-primary" (click)="this.errorModal = false">Close</button>
                 </div>
             </div>
         </div>

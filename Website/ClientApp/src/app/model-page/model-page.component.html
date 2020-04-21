@@ -59,7 +59,7 @@
                 </div>
                 <div class="card-body">
                     {{this.currentModel.description}}
-                    <div *ngIf="this.currentModel.description == null">
+                    <div *ngIf="this.currentModel.description == null || this.currentModel.description.trim() == ''">
                         There is no description for this model.
                     </div>
                 </div>
@@ -78,12 +78,17 @@
                             <div>
                                 {{result.name}}
                             </div>
-                            <input *ngIf="result.dataTypeId == 11" [(ngModel)]="result.currentValue" type="text" class="form-control"/>
-                            <input *ngIf="result.dataTypeId == 9" [(ngModel)]="result.currentValue" type="number" class="form-control"/>
-                            <select *ngIf="result.dataTypeId == 12" class="form-control" [(ngModel)]='result.currentValue'>
+                            <input required *ngIf="result.dataTypeId == 11" [(ngModel)]="result.currentValue" type="text" class="form-control"/>
+                            <input required *ngIf="result.dataTypeId == 9" [(ngModel)]="result.currentValue" type="number" class="form-control"/>
+                            <select required *ngIf="result.dataTypeId == 12" class="form-control" [(ngModel)]='result.currentValue'>
                                 <option [ngValue]="true" [selected]="true === result.currentValue">True</option>
                                 <option [ngValue]="false" [selected]="false === result.currentValue">False</option>
                             </select>
+                        </div>
+                    </div>
+                    <div *ngIf="predictFormError != null" class="row">
+                        <div class="col-12 text-center text-danger">
+                            {{predictFormError}}
                         </div>
                     </div>
                     <div class="row">
@@ -98,8 +103,13 @@
                     </div>
                     <div *ngIf="lastPrediction != null" class="row">
                         <div class="col-12 text-center">
-                            <h4>Results</h4>
+                            <h4>Results ({{this.GetOutputField()}})</h4>
                             <h5>{{this.lastPrediction}}</h5>
+                        </div>
+                    </div>
+                    <div *ngIf="predictionError != null" class="row">
+                        <div class="col-12 text-center">
+                            <h5 class="text-danger">{{this.predictionError}}</h5>
                         </div>
                     </div>
                     <div class="container text-center mt-5" *ngIf="this.makingPrediction == true">
@@ -117,7 +127,9 @@
                 </div>
                 <div class="card-body">
                     <div *ngIf="isLoggedin">
-                        You can use the Automate.ML public API to make predictions on this model in your own application
+                        You can use the Automate.ML public API to make predictions on this model in your own application. This
+                        information is for developers wanting to intigrate our models into their websites. This information can
+                        be ignored if you are not a developer.
                         <br/>
                         <br/>
                         <div>Endpoint: https://www.automate.ml/api/models/PublicPrediction?modelId=<span class="text-warning">[ModelId]</span>&data=<span class="text-success">[PredictionData]</span>
@@ -146,7 +158,6 @@
                             </li>
                         </ul>
                         <div>
-                            You can test this call on our developer documentation.
                             <div>
                                 <a class="btn btn-primary" href="/swagger">Go To Developer Documentation</a>
                             </div>
