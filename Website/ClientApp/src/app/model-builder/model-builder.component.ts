@@ -145,6 +145,7 @@ export class ModelBuilderComponent implements OnInit {
           }
         },
         error => {
+          console.log(error);
           this.errorModal = true;
           this.errorText = "An unknown error has occured. Please try again.";
           this.modalShowing = false;

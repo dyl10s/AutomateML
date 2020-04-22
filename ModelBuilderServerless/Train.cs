@@ -90,7 +90,7 @@ namespace ModelBuilderServerless
                     ExperimentResult<MulticlassClassificationMetrics> Results = null;
                     var settings = new MulticlassExperimentSettings()
                     {
-                        MaxExperimentTimeInSeconds = 10
+                        MaxExperimentTimeInSeconds = 20
                     };
                     var training = context.Auto().CreateMulticlassClassificationExperiment(settings);
                     Results = training.Execute(LoadedData, labelColumnName: input.LabelColumn);
@@ -102,7 +102,7 @@ namespace ModelBuilderServerless
                     ExperimentResult<BinaryClassificationMetrics> Results = null;
                     var settings = new BinaryExperimentSettings()
                     {
-                        MaxExperimentTimeInSeconds = 10
+                        MaxExperimentTimeInSeconds = 20
                     };
                     var training = context.Auto().CreateBinaryClassificationExperiment(settings);
                     Results = training.Execute(LoadedData, labelColumnName: input.LabelColumn);
@@ -114,7 +114,7 @@ namespace ModelBuilderServerless
                     ExperimentResult<RegressionMetrics> Results = null;
                     var settings = new RegressionExperimentSettings()
                     {
-                        MaxExperimentTimeInSeconds = 10
+                        MaxExperimentTimeInSeconds = 20
                     };
                     var training = context.Auto().CreateRegressionExperiment(settings);
                     Results = training.Execute(LoadedData, labelColumnName: input.LabelColumn);
