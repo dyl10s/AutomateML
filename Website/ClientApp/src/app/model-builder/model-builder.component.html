@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-12 mt-3">
                             <button class="btn btn-block btn-primary" (click)="this.startFileUpload()">Upload CSV</button>
-                            <input type="file" class="form-control" id="fileUpload" (change)="this.handleFileUpload($event)" />
+                            <input type="file" class="form-control" accept=".csv" id="fileUpload" (change)="this.handleFileUpload($event)" />
                         </div>
                     </div>
                 </div>
