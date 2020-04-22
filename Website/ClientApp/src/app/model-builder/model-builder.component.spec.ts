@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ModelBuilderComponent } from './model-builder.component';
 import { HelpTipComponent } from '../help-tip/help-tip.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Console } from 'console';
 
 describe('ModelBuilderComponent', () => {
   let component: ModelBuilderComponent;
@@ -29,7 +30,30 @@ describe('ModelBuilderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('modal should show when training starts', () => {
+  it('modal should not show when training starts with no data', () => {
+    component.startTraining();
+    expect(component.modalShowing).toBeFalsy();
+  });
+
+  it('modal should show when training starts with valid data', () => {
+
+    component.trainModel = {
+      Title: "test",
+      ModelType: 2,
+      LabelColumn: "test",
+      Columns: [
+        {
+          ColumnName: "test",
+          ColumnIndex: 1,
+          Type: 12
+        }
+      ],
+      Separator: ',',
+      Data: '',
+      HasHeaders: false,
+      Description: ""
+    };
+
     component.startTraining();
     expect(component.modalShowing).toBeTruthy();
   });
