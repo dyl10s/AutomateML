@@ -118,7 +118,7 @@ export class ModelPageComponent {
       if(e.isOutput){
         predictionData += '"", ';
       }else if(e.dataTypeId != 1){
-        if(!e.currentValue || e.currentValue.length == 0){
+        if(e.currentValue == null || e.currentValue.length == 0){
           this.predictFormError = "Please enter all the fields.";
           this.makingPrediction = false;
         }
